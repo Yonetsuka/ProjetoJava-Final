@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!- Nome:Cássio Eid Kobayashi Yonetsuka
+Rm:99678
+
+Nome: Allan Von Ivanov
+Rm:98705 ->
+<html lang="en">
+<head th:replace="~{base :: head}"></head>
+<body>
+    <div th:replace="~{base :: logo}"></div>
+    <div class="container">
+
+        <div th:replace="~{base :: titulo('Meus Itens')}"></div>
+        <nav class="navbar navbar-expand bg-body-tertiary d-flex justify-content-between mb-3">
+            <div class="navbar-nav">
+                <a class="nav-link-active" href="">Todos</a>
+                <a class="nav-link" href="">Esgotados</a>
+                <a class="nav-link" href="">Enviados</a>
+                <a class="nav-link" href="">Entregues</a>
+            </div>
+            <a href="/item/formulario">
+                <button class="btn btn-outline-secondary me-3">Novo</button>
+            </a>
+        </nav>
+        <div class="card mb-3" th:each="item : ${itens}">
+            <th:block th:switch="${pedido.status.name()}">
+                <div th:case="'AGUARDANDO'" class="card-header alert alert-warning" th:text="${pedido.nomeProduto}"></div>
+                <div th:case="'APROVADO'" class="card-header alert alert-success" th:text="${pedido.nomeProduto}"></div>
+                <div th:case="'ENTREGUE'" class="card-header alert alert-dark" th:text="${pedido.nomeProduto}"></div>
+            </th:block>
+            <div class="card-header" th:text="${item.nomeProduto}">Nome do produto</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 col-sm-8 mb-3">
+                            <div class="row">
+                                <div class="col-md-5">Valor:<span th:text="${item.valorNegociado}">199,95</span></div>
+                                <div class="col-md-7">Produto</div>
+                            </div>
+                            <div>
+                                <input class="form-control" th:value="${item.urlProduto}" value="url do produto">
+                            </div>
+                            <div>Descrição</div>
+                            <div>
+                                <textarea class="form-control" th:text="${item.descricao}">descrição do produto</textarea>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4">
+                            <div>
+                                <img class="img-thumbnail" th:src="${pedido.urlImagem}" src="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</body>
+</html>
